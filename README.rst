@@ -1,7 +1,7 @@
 Introduction
 ============
 
-mtm is the Micro Terminal Multiplexer, a terminal multiplexer.
+emtm is the Extended Micro Terminal Multiplexer, a terminal multiplexer.
 
 It has four major features/principles:
 
