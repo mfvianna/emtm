@@ -90,7 +90,7 @@ The `-v` tells emtm to show its version and exit;
 The `-h` tells emtm to show its usage and exit;
 
 The `-s` tells emtm to store a buffer of SCROLL_LINES for the scrollback funcionality
-at its invocation time, overriding the SCROLLBACK constant otherwise confugurable only
+at its invocation time, overriding the SCROLLBACK constant, otherwise confugurable only
 through config.h at compile time.
 
 The `-T` flag tells emtm to assume a different kind of host terminal.
