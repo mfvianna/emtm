@@ -10,13 +10,13 @@ Simplicity
     There are no modes, no dozens of commands, no crazy feature list.
 
 Compatibility
-    mtm emulates a classic ANSI text terminal.  That means it should
+    emtm emulates a classic ANSI text terminal.  That means it should
     work out of the box on essentially all terminfo/termcap-based systems
     (even pretty old ones), without needing to install a new termcap entry.
 
 Size
-    mtm is small.
-    The entire project is around 1000 lines of code.
+    emtm is small.
+    The entire project is still around 1000 lines of code.
 
 Stability
     Unlikely mtm, emtm is an active project that aims to add a few extensions to
@@ -26,7 +26,16 @@ Stability
     emtm **WILL SUPPORT** the following extensions over mtm:
 
     - An option that allows emtm to work as a wrapper to agetty, allowing it to be
-      lowest level process on a Virtual Terminal;
+      lowest level process on a Virtual Terminal. (A selinux policy file is provided
+      so that it works with selinux enforcing);
+
+    - A systemd "/etc/systemd/system/getty@.service.d/override.conf" file for enabling
+      transparent agetty wrapping;
+
+    - A loadable keyboard map for replacing the SHIFT+PGUP and SHIFT+PGDOWN with the
+      necessary key sequence enabling them to work on the Virtual Terminals, even if
+      the kernel doesn't report those keystrokes, which as of Kernel 6.11.5 is still
+      true;
 
     - Options to show the current emtm version as well as its usage;
 
@@ -83,9 +92,9 @@ The `-s` <lines>" tells emtm to store a buffer of <lines> for the scrollback fun
 at its invocation time, overriding the SCROLLBACK constant otherwise confugurable only
 through config.h at compile time.
 
-The `-T` flag tells mtm to assume a different kind of host terminal.
+The `-T` flag tells emtm to assume a different kind of host terminal.
 
-The `-t` flag tells mtm what terminal type to advertise itself as.
+The `-t` flag tells emtm what terminal type to advertise itself as.
 Note that this doesn't change how mtm interprets control sequences; it
 simply controls what the `TERM` environment variable is set to.
 
