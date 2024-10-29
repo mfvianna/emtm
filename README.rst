@@ -85,9 +85,9 @@ any shell, allowing it to replace (actually wrap) agetty in order to restore the
 Virtual Terminal scrollback functionality which was removed from the Linux Kernel from
 versions 5.xx.xx and above;
 
-The `-h` tells emtm to show its usage and exit;
-
 The `-v` tells emtm to show its version and exit;
+
+The `-h` tells emtm to show its usage and exit;
 
 The `-s` tells emtm to store a buffer of SCROLL_LINES for the scrollback funcionality
 at its invocation time, overriding the SCROLLBACK constant otherwise confugurable only
