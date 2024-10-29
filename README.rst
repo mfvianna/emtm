@@ -96,11 +96,11 @@ through config.h at compile time.
 The `-T` flag tells emtm to assume a different kind of host terminal.
 
 The `-t` flag tells emtm what terminal type to advertise itself as.
-Note that this doesn't change how mtm interprets control sequences; it
+Note that this doesn't change how emtm interprets control sequences; it
 simply controls what the `TERM` environment variable is set to.
 
 The `-c` flag lets you specify a keyboard character to use as the "command
-prefix" for mtm when modified with *control* (see below).  By default,
+prefix" for emtm when modified with *control* (see below).  By default,
 this is `g`.
 
 Once inside emtm, things pretty much work like any other terminal.  However,
