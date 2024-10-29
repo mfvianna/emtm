@@ -89,7 +89,7 @@ The `-h` tells emtm to show its usage and exit;
 
 The `-v` tells emtm to show its version and exit;
 
-The `-s` <lines>" tells emtm to store a buffer of <lines> for the scrollback funcionality
+The `-s` tells emtm to store a buffer of SCROLL_LINES for the scrollback funcionality
 at its invocation time, overriding the SCROLLBACK constant otherwise confugurable only
 through config.h at compile time.
 
