@@ -35,8 +35,8 @@ Stability
 
     - A loadable keyboard map for replacing the SHIFT+PGUP and SHIFT+PGDOWN with the
       necessary key sequence enabling them to work on the Virtual Terminals, even if
-      the kernel doesn't report those keystrokes, which as of Kernel 6.11.5 is still
-      true;
+      the kernel doesn't report those keystrokes, which is still true as of Linux
+      Kernel version 6.11.5;
 
     - Options to show the current emtm version as well as its usage;
 
