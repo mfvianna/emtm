@@ -80,7 +80,7 @@ Usage is simple::
 
     emtm [-a] [-v] [-h] [-s SCROLL_LINES] [-T NAME] [-t NAME] [-c KEY]
 
-The `-a` flag tells emtm to execute `/sbin/agetty -o "-p -- \\u" - $TERM` instead of
+The `-a` flag tells emtm to execute "/sbin/agetty -o '-p -- \\u' - $TERM" instead of
 any shell, allowing it to replace (actually wrap) agetty in order to restore the
 Virtual Terminal scrollback functionality which was removed from the Linux Kernel from
 versions 5.xx.xx and above;
