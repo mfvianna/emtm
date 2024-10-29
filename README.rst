@@ -220,6 +220,7 @@ Copyright and License
 =====================
 
 Copyright 2016-2019 Rob King <jking@deadpixi.com>
+
 Copyright 2024 Marcelo Vianna <<TODO>>
 
 This program is free software: you can redistribute it and/or modify
