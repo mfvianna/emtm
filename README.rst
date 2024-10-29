@@ -19,9 +19,9 @@ Size
     The entire project is still around 1000 lines of code.
 
 Stability
-    Unlikely mtm, emtm is an active project that aims to add a few extensions to
-    the original project, while maintaining its compatibility and avoiding to disrupt
-    the original mtm Stability as much as possible.
+    Unlikely mtm, emtm is an active project that aims to add a few extensions to the
+    original project, while maintaining its compatibility and avoiding to disrupt the
+    Stability as much as possible with just a few changes in the source code.
 
     emtm **WILL SUPPORT** the following extensions over mtm:
 
