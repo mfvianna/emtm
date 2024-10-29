@@ -27,7 +27,7 @@ Stability
     emtm **WILL SUPPORT** the following extensions over mtm:
 
     - An option that allows emtm to work as a wrapper to agetty, allowing it to be
-      lowest level process on a Virtual Terminal. (A selinux policy file is provided
+      lowest level process on a Virtual Terminal. (An selinux policy file is provided
       so that it works with selinux enforcing);
 
     - A systemd "/etc/systemd/system/getty@.service.d/override.conf" file for enabling
