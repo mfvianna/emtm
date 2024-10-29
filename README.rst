@@ -20,8 +20,8 @@ Size
 
 Stability
     Unlikely mtm, emtm is an active project that aims to add a few extensions to
-    the original project while maintaining its compatibility and avoiding disrupt
-    the Stability as much as possible.
+    the original project, while maintaining its compatibility and avoiding to disrupt
+    the original mtm Stability as much as possible.
 
     emtm **WILL SUPPORT** the following extensions over mtm:
 
