@@ -19,19 +19,20 @@ Size
     The entire project is around 1000 lines of code.
 
 Stability
-    mtm is "finished" as it is now.  You don't need to worry about it
-    changing on you unexpectedly.  The only changes that can happen at
-    this point are:
+    Unlikely mtm, emtm is an active project that aims to add a few extensions to
+    the original project while maintaining its compatibility and avoiding disrupt
+    the Stability as much as possible.
 
-    - Bug fixes.
-    - Translation improvements.
-    - Accessibility improvements.
-    - Fixes to keep it working on modern OSes.
+    emtm **WILL SUPPORT** the following extensions over mtm:
 
-Community
-=========
+    - An option that allows emtm to work as a wrapper to agetty, allowing it to be
+      lowest level process on a Virtual Terminal;
 
-Rob posts updates about mtm on Twitter at http://twitter.com/TheKingAdRob.
+    - Options to show the current emtm version as well as its usage;
+
+    - An option that allows the number of scrollback lines to be specified at emtm
+      invocation.
+
 
 Installation
 ============
@@ -67,7 +68,20 @@ Usage
 
 Usage is simple::
 
-    mtm [-T NAME] [-t NAME] [-c KEY]
+    emtm [-a] [-v] [-h] [-s SCROLL_LINES] [-T NAME] [-t NAME] [-c KEY]
+
+The `-a` flag tells emtm to execute `/sbin/agetty -o "-p -- \\u" - $TERM` instead of
+any shell, allowing it to replace (actually wrap) agetty in order to restore the
+Virtual Terminal scrollback functionality which was removed from the Linux Kernel from
+versions 5.xx.xx and above;
+
+The `-h` tells emtm to show its usage and exit;
+
+The `-v` tells emtm to show its version and exit;
+
+The `-s` <lines>" tells emtm to store a buffer of <lines> for the scrollback funcionality
+at its invocation time, overriding the SCROLLBACK constant otherwise confugurable only
+through config.h at compile time.
 
 The `-T` flag tells mtm to assume a different kind of host terminal.
 
@@ -79,7 +93,7 @@ The `-c` flag lets you specify a keyboard character to use as the "command
 prefix" for mtm when modified with *control* (see below).  By default,
 this is `g`.
 
-Once inside mtm, things pretty much work like any other terminal.  However,
+Once inside emtm, things pretty much work like any other terminal.  However,
 mtm lets you split up the terminal into multiple virtual terminals.
 
 At any given moment, exactly one virtual terminal is *focused*.  It is
@@ -180,7 +194,7 @@ mtm-noutf
 That command will compile and install the terminfo entry.  After doing so,
 calling mtm with `-t mtm`::
 
-    mtm -t mtm
+    emtm -t mtm
 
 will instruct programs to use that terminfo entry.
 You can, of course, replace `mtm` with any of the other above terminal
@@ -196,6 +210,7 @@ Copyright and License
 =====================
 
 Copyright 2016-2019 Rob King <jking@deadpixi.com>
+Copyright 2024 Marcelo Vianna <<TODO>>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
