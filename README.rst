@@ -43,6 +43,14 @@ Stability
     - An option that allows the number of scrollback lines to be specified at emtm
       invocation.
 
+    - Some additional envirnoment variables are set within an emtm session:
+
+      - EMTM_PTTY: Is set to the parent tty name when the -a option is used
+
+      - EMTM_TTY: Is set to the emtm session tty name
+
+      - EMTM_VER: Is set to emtm's verision
+
 
 Installation
 ============
@@ -82,8 +90,10 @@ Usage is simple::
 
 The `-a` flag tells emtm to execute "/sbin/agetty -o '-p -- \\u' - $TERM" instead of
 any shell, allowing it to replace (actually wrap) agetty in order to restore the
-Virtual Terminal scrollback functionality which was removed from the Linux Kernel from
-versions 5.xx.xx and above;
+Virtual Terminal scrollback functionality which was removed from the Linux Kernel
+versions 5.9 and above;
+OBS: When emtm is used to wrap agetty, the environment variable EMTM_PTTY is set with
+the name of the parent tty;
 
 The `-v` tells emtm to show its version and exit;
 
