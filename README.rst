@@ -1,8 +1,8 @@
 Introduction
 ============
 
-** IMPORTANT: This project has just started.  The sources here do not contain the changes
-listed in this README.rst file yet. **
+**IMPORTANT: This project has just started.  The sources here do not contain the changes
+listed in this README.rst file yet.**
 
 emtm is the Extended Micro Terminal Multiplexer, a terminal multiplexer based on the
 Micro Terminal Multiplexer (mtm) project.
