@@ -1,7 +1,8 @@
 Introduction
 ============
 
-emtm is the Extended Micro Terminal Multiplexer, a terminal multiplexer.
+emtm is the Extended Micro Terminal Multiplexer, a terminal multiplexer based on the
+Micro Terminal Multiplexer (mtm) project.
 
 It has four major features/principles:
 
@@ -27,21 +28,21 @@ Stability
     emtm **WILL SUPPORT** the following extensions over mtm:
 
     - An option that allows emtm to work as a wrapper to agetty, allowing it to be
-      lowest level process on a Virtual Terminal. (An selinux policy file is provided
-      so that it works with selinux enforcing);
+      the lowest level process on a Virtual Terminal. (An selinux policy file is provided
+      so that it works even when selinux is set to enforcing);
 
     - A systemd "/etc/systemd/system/getty@.service.d/override.conf" file for enabling
       transparent agetty wrapping;
 
-    - A loadable keyboard map for replacing the SHIFT+PGUP and SHIFT+PGDOWN with the
-      necessary key sequence enabling them to work on the Virtual Terminals, even if
-      the kernel doesn't report those keystrokes, which is still true as of Linux
-      Kernel version 6.11.5;
+    - A loadable keyboard map file for replacing the SHIFT+PGUP and SHIFT+PGDOWN keys with the
+      necessary key sequences (i.e., CTRL+g followed by PGUP or PGDOWN) enabling them to work
+      on the Virtual Terminals, even if the kernel doesn't report those keystrokes, which is
+      still true as of Linux Kernel version 6.11.5;
 
-    - Options to show the current emtm version as well as its usage;
+    - Command line options to show the current emtm version as well as its usage;
 
-    - An option that allows the number of scrollback lines to be specified at emtm
-      invocation.
+    - A command line option that allows the number of scrollback lines to be specified at emtm
+      invocation as opposed to only be configurable at compile time;
 
     - Some additional envirnoment variables are set within an emtm session:
 
@@ -86,7 +87,7 @@ Usage
 
 Usage is simple::
 
-    emtm [-a] [-v] [-h] [-s SCROLL_LINES] [-T NAME] [-t NAME] [-c KEY]
+    emtm [-a] [-v] [-h] [-s LINES] [-T NAME] [-t NAME] [-c KEY]
 
 The `-a` flag tells emtm to execute "/sbin/agetty -o '-p -- \\u' - $TERM" instead of
 any shell, allowing it to replace (actually wrap) agetty in order to restore the
@@ -99,7 +100,7 @@ The `-v` tells emtm to show its version and exit;
 
 The `-h` tells emtm to show its usage and exit;
 
-The `-s` tells emtm to store a buffer of SCROLL_LINES for the scrollback funcionality
+The `-s` tells emtm to store a buffer of LINES for the scrollback funcionality
 at its invocation time, overriding the SCROLLBACK constant, otherwise confugurable only
 through config.h at compile time.
 
