@@ -7,7 +7,7 @@ listed in this README.rst file yet.**
 emtm is the Extended Micro Terminal Multiplexer, a terminal multiplexer based on the
 Micro Terminal Multiplexer (mtm) project.
 
-It has four major features/principles:
+It has a superset of mtm's features and shares its principles to some extent:
 
 Simplicity
     There are only a few commands, two of which are hardly ever used.
@@ -23,38 +23,43 @@ Size
     The entire project is still around 1000 lines of code.
 
 Stability
-    Unlikely mtm, emtm is an active project that aims to add some extensions to the
+    Unlikely its predecessor, emtm is an active project that aims to add some extensions to the
     original project, while maintaining its compatibility and avoiding Stability
     disruption.  The goal is to make as few changes as possible to the original
-    source code (although this can change in the furure if new features worth it).
+    source code (although this can change in the future if new features really worth it).
 
     emtm **WILL SUPPORT** the following extensions over mtm:
 
-    - An option that allows emtm to work as a wrapper to agetty, allowing it to be
-      the lowest level process on a Virtual Terminal. (An selinux policy file is provided
-      so that it works even when selinux is set to enforcing);
+    - An option that allows it to work as a wrapper to agetty, allowing it to be
+      the lowest level process on a Virtual Terminal. (An selinux policy to be used on Linux is
+      provided so that this new functionality works even when selinux is set to enforcing);
 
     - A systemd "/etc/systemd/system/getty@.service.d/override.conf" file for enabling
       transparent agetty wrapping;
 
     - A loadable keyboard map file for replacing the SHIFT+PGUP and SHIFT+PGDOWN keys with the
       necessary key sequences (i.e., CTRL+g followed by PGUP or PGDOWN) enabling them to work
-      on the Virtual Terminals, even if the kernel doesn't report those keystrokes, which is
+      on the Linux Virtual Terminals, even if the kernel doesn't report those keystrokes, which is
       still true as of Linux Kernel version 6.11.5;
 
-    - Command line options to show the current emtm version as well as its usage;
+    - Command line options to show the current emtm version and its usage;
 
     - A command line option that allows the number of scrollback lines to be specified at emtm
       invocation as opposed to only be configurable at compile time;
 
     - Some additional envirnoment variables are set within an emtm session:
 
-      - EMTM_PTTY: Is set to the parent tty name when the -a option is used
+      - EMTM_ROOT_TTY: Is set to the root tty name (i.e., the root tty where emtm is running) when the
+        -a option is used;
 
-      - EMTM_TTY: Is set to the emtm session tty name
+      - EMTM_TTY: Is set to the emtm's session pseudo tty name (i.e, the "pts/?" tty of a chield terminal);
 
-      - EMTM_VER: Is set to emtm's verision
+      - EMTM_VERSION: Is set to emtm's verision;
 
+      - EMTM_SCROLL: Is set to emtm's number of lines in the scroll back buffer.  If this variable is
+        set by the parent process that invocates emtm, the scroll buffer will be set accordingly.
+        Further changes in this variable after emtm is already running has no effect on the scroll back
+        buffer size;
 
 Installation
 ============
@@ -90,22 +95,30 @@ Usage
 
 Usage is simple::
 
-    emtm [-a] [-v] [-h] [-s LINES] [-T NAME] [-t NAME] [-c KEY]
+    emtm [-w GETTY] [-v] [-h] [-s LINES] [-T NAME] [-t NAME] [-c KEY]
 
-The `-a` flag tells emtm to execute "/sbin/agetty -o '-p -- \\u' - $TERM" instead of
-any shell, allowing it to replace (actually wrap) agetty in order to restore the
-Virtual Terminal scrollback functionality which was removed from the Linux Kernel
-versions 5.9 and above;
-OBS: When emtm is used to wrap agetty, the environment variable EMTM_PTTY is set with
-the name of the parent tty;
+The `-w` flag tells emtm to execute one of the preconfigured terminal getty programs
+to perform login instead of directly starting a shell:
+
+    GETTY = a: Executes "/sbin/agetty -o '-p -- \\u' - $TERM";
+
+    GETTY = m: Executes "/sbin/mgetty";
+
+    GETTY = i: Executes "/sbin/mingetty".
+
+The main idea of -w is allow emtm to wrap the actual getty.  In addition to enable the
+support of spliting the screen even before login, on Linus it also restores the
+Virtual Terminal scrollback functionality which was removed from the Kernel on
+versions 5.9 and above.  When this option is used, the environment variable EMTM_ROOT_TTY
+is set to the name of the root tty (typically tty1, tty2, tty3, ...) as the tty command will
+print the pseudo tty device on the chield terminals (/dev/pts/1, /dev/pts/2, ...);
 
 The `-v` tells emtm to show its version and exit;
 
 The `-h` tells emtm to show its usage and exit;
 
-The `-s` tells emtm to store a buffer of LINES for the scrollback funcionality
-at its invocation time, overriding the SCROLLBACK constant, otherwise confugurable only
-through config.h at compile time.
+The `-s` is used to control the number of LINES for the scrollback funcionality at its
+invocation time, overriding the SCROLLBACK constant defined in the config.h at compile time.
 
 The `-T` flag tells emtm to assume a different kind of host terminal.
 
@@ -118,13 +131,13 @@ prefix" for emtm when modified with *control* (see below).  By default,
 this is `g`.
 
 Once inside emtm, things pretty much work like any other terminal.  However,
-mtm lets you split up the terminal into multiple virtual terminals.
+emtm lets you split up the terminal into multiple virtual terminals.
 
 At any given moment, exactly one virtual terminal is *focused*.  It is
 to this terminal that keyboad input is sent.  The focused terminal is
 indicated by the location of the cursor.
 
-The following commands are recognized in mtm, when preceded by the command
+The following commands are recognized in emtm, when preceded by the command
 prefix (by default *ctrl-g*):
 
 Up/Down/Left/Right Arrow
@@ -174,17 +187,17 @@ mtm showing its compatibility
 
 Compatibility
 =============
-(Note that you only need to read this section if you're curious.  mtm should
+(Note that you only need to read this section if you're curious.  emtm should
 just work out-of-the-box for you, thanks to the efforts of the various
 hackers over the years to make terminal-independence a reality.)
 
-By default, mtm advertises itself as a `screen-bce` terminal.  This is what `GNU
-screen` and `tmux` advertise themselves as, and is a well-known terminal
+By default, wmtm advertises itself as a `screen-bce` terminal.  This is what 
+`GNU screen` and `tmux` advertise themselves as, and is a well-known terminal
 type that has been in the default terminfo database for decades.
 
 (Note that this should not be taken to imply that anyone involved in the
 `GNU screen` or `tmux` projects endorses or otherwise has anything to do
-with mtm, and vice-versa. Their work is excellent, though, and you should
+with emtm, and vice-versa. Their work is excellent, though, and you should
 definitely check it out.)
 
 The (optional!) `mtm` Terminal Types
