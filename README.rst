@@ -49,10 +49,11 @@ Stability
 
     - Some additional envirnoment variables are set within an emtm session:
 
-      - EMTM_ROOT_TTY: Is set to the root tty name (i.e., the root tty where emtm is running) when the
-        -a option is used;
+      - EMTM_TTY: Is set to the root tty name (i.e., the root tty where emtm is running).
+        OBS: This variable is only set when the -a option is used;
 
-      - EMTM_TTY: Is set to the emtm's session pseudo tty name (i.e, the "pts/?" tty of a chield terminal);
+      - EMTM_TERM: Is set to the root terminal (usually "linux" when run in a Linux VT;
+        OBS: This variable is only set when the -a option is used;
 
       - EMTM_VERSION: Is set to emtm's verision;
 
@@ -97,16 +98,25 @@ Usage is simple::
 
     emtm [-w GETTY] [-v] [-h] [-s LINES] [-T NAME] [-t NAME] [-c KEY]
 
-The `-w` flag tells emtm to execute one of the preconfigured terminal getty programs
-to perform login instead of directly starting a shell:
+The `-w` flag tells emtm to execute one of the preconfigured terminal getty
+programs to perform login instead of directly starting a shell.
+The getty programs and their parameters are are defined in config.h.  By detault
+there are four getty options supported:
 
-    GETTY = b: Executes a builtin getty functionality that runs login;
+parameters of the -w option:
+    - *a*: Uses agetty;
 
-    GETTY = a: Executes "/sbin/agetty -o '-p -- \\u' - $TERM";
+    - *b*: Uses busybox getty functionality;
 
-    GETTY = m: Executes "/sbin/mgetty";
+    - *m*: Uses mingetty.
 
-    GETTY = i: Executes "/sbin/mingetty".
+    - *M*: Uses mgetty;
+
+OBS: From the options listed above, only agetty directly supports asking /bin/login to propagate
+the emtm environment variables to the login session.  It is also possible to propagate them
+using mgetty, but this requires additional changes in its configuration files.  The other two
+(mingetty and busybox) doesn't support passing args to /bin/login, so the EMTM_... variables
+won't be set after the login (/bin/login will clear them before finally invoking the login shell).
 
 The main idea of -w is allow emtm to wrap the actual getty.  In addition to enable the
 support of spliting the screen even before login, on Linus it also restores the
