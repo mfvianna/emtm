@@ -100,6 +100,8 @@ Usage is simple::
 The `-w` flag tells emtm to execute one of the preconfigured terminal getty programs
 to perform login instead of directly starting a shell:
 
+    GETTY = b: Executes a builtin getty functionality that runs login;
+
     GETTY = a: Executes "/sbin/agetty -o '-p -- \\u' - $TERM";
 
     GETTY = m: Executes "/sbin/mgetty";
