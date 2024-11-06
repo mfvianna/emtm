@@ -30,6 +30,9 @@ Stability
 
     emtm **WILL SUPPORT** the following extensions over mtm:
 
+    - emtm will refuse to run if stdin is not a valid tty device.  This prevents command
+      injections from the standard input redirections;
+
     - An option that allows it to work as a wrapper to agetty, allowing it to be
       the lowest level process on a Virtual Terminal. (An selinux policy to be used on Linux is
       provided so that this new functionality works even when selinux is set to enforcing);
