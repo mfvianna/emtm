@@ -31,14 +31,14 @@ Stability
     emtm **WILL SUPPORT** the following extensions over mtm:
 
     - emtm will refuse to run if stdin is not a valid tty device.  This prevents command
-      injections from the standard input redirections;
+      injections from standard input redirection;
 
     - An option that allows it to work as a wrapper to agetty, allowing it to be
       the lowest level process on a Virtual Terminal. (An selinux policy to be used on Linux is
       provided so that this new functionality works even when selinux is set to enforcing);
 
     - A systemd "/etc/systemd/system/getty@.service.d/override.conf" file for enabling
-      transparent agetty wrapping;
+      transparent getty wrapping;
 
     - A loadable keyboard map file for replacing the SHIFT+PGUP and SHIFT+PGDOWN keys with the
       necessary key sequences (i.e., CTRL+g followed by PGUP or PGDOWN) enabling them to work
@@ -48,7 +48,7 @@ Stability
     - Command line options to show the current emtm version and its usage;
 
     - A command line option that allows the number of scrollback lines to be specified at emtm
-      invocation as opposed to only be configurable at compile time;
+      invocation as opposed to only being configurable at compile time;
 
     - Some additional envirnoment variables are set within an emtm session:
 
